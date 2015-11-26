@@ -1,6 +1,7 @@
 import moment from 'moment';
 import request from 'superagent';
-import React, { Component, TextInput, Text, View, ProgressBarAndroid, TouchableOpacity, NativeModules } from 'react-native';
+import React, { Component, Text, View, ProgressBarAndroid, NativeModules, StyleSheet } from 'react-native';
+import MK, { MKButton, MKTextField } from 'react-native-material-kit';
 
 export default class Entry extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class Entry extends Component {
   });
 }
 
-  onSubmit() {
+  onSave() {
     this.setState({isLoading: true});
     this.fetchData();
   }
@@ -47,33 +48,54 @@ export default class Entry extends Component {
           <Text onPress={(event) => this.handleDateClick()}>
             Date: {this.state.date}
           </Text>
-        <TextInput
-          keyboardType='email-address'
-          onChangeText={(email) => this.setState({email})}
-          placeholder='Email'
-          value={this.state.email}
-        />
+          <MKTextField
+            floatingLabelEnabled={true}
+            floatingLabelFont={{fontSize: 15, fontWeight:'100'}}
+            keyboardType='email-address'
+            onChangeText={(email) => this.setState({email})}
+            placeholder='Email'
+            value={this.state.email}
+            style={styles.textfieldWithFloatingLabel}
+          />
+          <MKTextField
+            floatingLabelEnabled={true}
+            floatingLabelFont={{fontSize: 15, fontWeight:'100'}}
+            keyboardType='numeric'
+            onChangeText={(duration) => this.setState({duration})}
+            placeholder='Duration of workout in minutes:'
+            value={this.state.duration}
+            style={styles.textfieldWithFloatingLabel}
+          />
+          <MKTextField
+            floatingLabelEnabled={true}
+            floatingLabelFont={{fontSize: 10, fontWeight:'100'}}
+            keyboardType='default'
+            onChangeText={(description) => this.setState({description})}
+            placeholder='Brief description:'
+            value={this.state.description}
+            style={styles.textfieldWithFloatingLabel}
+          />
 
-      <TextInput
-        keyboardType='numeric'
-        onChangeText={(duration) => this.setState({duration})}
-        placeholder='Duration of workout in minutes:'
-        value={this.state.duration}
-        />
+          <MKButton
+            backgroundColor={'#43ca01'}
+            style={{height: 38, padding: 10, margin: 10}}
+            onPress={() => this.onSave()}
+          >
+            <Text pointerEvents="none"
+              style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>
+              SAVE
+            </Text>
+          </MKButton>
 
-      <TextInput
-        keyboardType='default'
-        onChangeText={(description) => this.setState({description})}
-        placeholder='Brief description:'
-        value={this.state.description}
-      />
-
-      <TouchableOpacity
-        onPress={this.onSubmit.bind(this)}>
-        <Text>Submit</Text>
-      </TouchableOpacity>
-    </ View>
+        </ View>
       )
     );
   }
 }
+
+let styles = StyleSheet.create({
+  textfieldWithFloatingLabel: {
+    height: 50,
+    marginTop: 10,
+  },
+});
