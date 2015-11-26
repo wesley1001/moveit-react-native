@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import me.nucleartux.date.ReactDatePackage;
 import android.support.v4.app.FragmentActivity;
 import com.facebook.react.LifecycleState;
@@ -29,6 +30,7 @@ public class MainActivity extends FragmentActivity implements DefaultHardwareBac
                 .setJSMainModuleName("index.android")
                 .addPackage(new MainReactPackage())
                 .addPackage(new ReactDatePackage(this))
+                .addPackage(new ReactMaterialKitPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
