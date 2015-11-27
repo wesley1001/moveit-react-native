@@ -26,10 +26,11 @@ export default class Entry extends Component {
     console.log(res);
   });
 }
+  sendData() {
 
   onSave() {
-    this.setState({isLoading: true});
-    this.fetchData();
+    this.setState({ isLoading: true });
+    this.sendData();
   }
 
   handleDateClick() {
@@ -42,56 +43,58 @@ export default class Entry extends Component {
   }
 
   render() {
-    return (
-      this.state.isLoading ? (<ProgressBarAndroid styleAttr="Inverse"/>) : (
-        <View>
-          <Text onPress={(event) => this.handleDateClick()}>
-            Date: {this.state.date}
-          </Text>
-          <MKTextField
-            floatingLabelEnabled={true}
-            floatingLabelFont={{fontSize: 15, fontWeight:'100'}}
-            keyboardType='email-address'
-            onChangeText={(email) => this.setState({email})}
-            placeholder='Email'
-            value={this.state.email}
-            style={styles.textfieldWithFloatingLabel}
-          />
-          <MKTextField
-            floatingLabelEnabled={true}
-            floatingLabelFont={{fontSize: 15, fontWeight:'100'}}
-            keyboardType='numeric'
-            onChangeText={(duration) => this.setState({duration})}
-            placeholder='Duration of workout in minutes:'
-            value={this.state.duration}
-            style={styles.textfieldWithFloatingLabel}
-          />
-          <MKTextField
-            floatingLabelEnabled={true}
-            floatingLabelFont={{fontSize: 10, fontWeight:'100'}}
-            keyboardType='default'
-            onChangeText={(description) => this.setState({description})}
-            placeholder='Brief description:'
-            value={this.state.description}
-            style={styles.textfieldWithFloatingLabel}
-          />
-
-          <MKButton
-            backgroundColor={'#43ca01'}
-            style={{height: 38, padding: 10, margin: 10}}
-            onPress={() => this.onSave()}
-          >
-            <Text pointerEvents="none"
-              style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>
-              SAVE
+      if(this.state.isLoading) {
+        return (<ProgressBarAndroid styleAttr="Inverse"/>);
+      } else {
+        return (
+          <View>
+            <Text onPress={(event) => this.handleDateClick()}>
+              Date: {this.state.date}
             </Text>
-          </MKButton>
+            <MKTextField
+              floatingLabelEnabled={true}
+              floatingLabelFont={{fontSize: 15, fontWeight:'100'}}
+              keyboardType='email-address'
+              onChangeText={(email) => this.setState({email})}
+              placeholder='Email'
+              value={this.state.email}
+              style={styles.textfieldWithFloatingLabel}
+            />
+            <MKTextField
+              floatingLabelEnabled={true}
+              floatingLabelFont={{fontSize: 15, fontWeight:'100'}}
+              keyboardType='numeric'
+              onChangeText={(duration) => this.setState({duration})}
+              placeholder='Duration of workout in minutes:'
+              value={this.state.duration}
+              style={styles.textfieldWithFloatingLabel}
+            />
+            <MKTextField
+              floatingLabelEnabled={true}
+              floatingLabelFont={{fontSize: 10, fontWeight:'100'}}
+              keyboardType='default'
+              onChangeText={(description) => this.setState({description})}
+              placeholder='Brief description:'
+              value={this.state.description}
+              style={styles.textfieldWithFloatingLabel}
+            />
 
-        </ View>
-      )
-    );
+            <MKButton
+              backgroundColor={'#43ca01'}
+              style={{height: 38, padding: 10, margin: 10}}
+              onPress={() => this.onSave()}
+            >
+              <Text pointerEvents="none"
+                style={{color: 'white', fontWeight: 'bold', textAlign: 'center'}}>
+                SAVE
+              </Text>
+            </MKButton>
+
+          </View>
+        );
+      }
+    }
   }
-}
 
 let styles = StyleSheet.create({
   textfieldWithFloatingLabel: {
