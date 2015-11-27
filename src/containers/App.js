@@ -54,6 +54,8 @@ export default class ReMoveIt extends Component {
       <View style={styles.container}>
         <ToolbarAndroid
           style={styles.toolbar}
+          navIcon={require('./../img/ic_menu_black_24dp.png')}
+          onIconClicked={() => this.drawer.openDrawer()}
           title={this.state.view.title}
         />
         <Component />
