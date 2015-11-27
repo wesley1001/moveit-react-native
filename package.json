@@ -12,6 +12,8 @@
     "react-native-material-kit": "^0.2.2"
   },
   "devDependencies": {
-    "superagent": "^1.4.0"
+    "superagent": "^1.4.0",
+    "superagent-jsonapify": "^1.4.0",
+    "superagent-prefix": "0.0.2"
   }
 }

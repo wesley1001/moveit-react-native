@@ -1,5 +1,5 @@
 import moment from 'moment';
-import request from 'superagent';
+import Server from '../services/Server'
 import React, { Component, Text, View, ProgressBarAndroid, NativeModules, StyleSheet } from 'react-native';
 import MK, { MKButton, MKTextField } from 'react-native-material-kit';
 
@@ -7,26 +7,24 @@ export default class Entry extends Component {
   constructor(props) {
     super(props);
     this.state = {isLoading: false, email: '', duration: '',date: moment().format('YYYY-MM-DD'), description: ''};
+    this.server = new Server('http://staging-move1t.herokuapp.com');
   }
 
-  fetchData() {
-    request
-  .post('http://staging-move1t.herokuapp.com/entries.json')
-  .send({ email: this.state.email,
-        entry: {
-          duration: this.state.duration,
-          date: this.state.date,
-          description: this.state.description
-        }
-      })
-  .set('Accept', 'application/json')
-  .end((err, res) => {
-    // Calling the end function will send the request
-    this.setState({isLoading: false});
-    console.log(res);
-  });
-}
   sendData() {
+    let data = {
+      email: this.state.email,
+          entry: {
+            duration: this.state.duration,
+            date: this.state.date,
+            description: this.state.description
+      }
+    };
+
+    this.server.post('/entries.json', data, () => {
+        this.setState({ isLoading: false });
+      }
+    );
+  }
 
   onSave() {
     this.setState({ isLoading: true });
